@@ -29,13 +29,13 @@ export default async function Home(){
       </div>
       
       <div className="px-5 mt-6">
-        <h2 className="text-xs mb-3uppercase text-gray-400 font-bold">AGENDAMENTOS</h2>
+        <h2 className="text-xs mb-3 uppercase text-gray-400 font-bold">AGENDAMENTOS</h2>
         <BookingItem />
 
       </div>
 
       <div className="mt-6">
-        <h2 className="px-5 text-xs mb-3uppercase text-gray-400">RECOMENDADOS</h2>
+        <h2 className="px-6 text-xs mb-3 uppercase text-gray-400">RECOMENDADOS</h2>
 
         <div className="flex px-5 gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop) => (
@@ -44,8 +44,8 @@ export default async function Home(){
         </div>
       </div>
 
-      <div className="mt-6 mb-[4.5rem]">
-        <h2 className="px-5 text-xs mb-3uppercase text-gray-400">POPULARES</h2>
+      <div className="mt-6 mb-[4.5rem ]">
+        <h2 className="px-6 text-xs mb-3 uppercase text-gray-400">POPULARES</h2>
 
         <div className="flex px-5 gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop) => (
