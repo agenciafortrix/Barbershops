@@ -53,11 +53,6 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
   }, [date, barbershop.id]);
 
 
-
-
-
-
-
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);
     setHour(undefined);
@@ -169,7 +164,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                   </Button>
                 </SheetTrigger>
 
-                <SheetContent className="p-0">
+                <SheetContent className="p-0 "style={{ overflowY: "auto" }}>
                   <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
