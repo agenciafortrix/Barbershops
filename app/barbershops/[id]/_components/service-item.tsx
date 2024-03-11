@@ -264,7 +264,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                       Confirmar reserva
                     </Button>
                   </SheetFooter>
-                </SheetContent>
+                  </SheetContent>
               </Sheet>
             </div>
           </div>
