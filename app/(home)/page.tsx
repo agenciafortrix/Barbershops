@@ -4,15 +4,21 @@ import { ptBR } from "date-fns/locale";
 import BookingItem from "../_components/booking-item";
 import { db } from "../_lib/prisma";
 import { getServerSession } from "next-auth";
+import { authOptions } from "../_lib/auth";
 import Search from "./components/search";
 import BarbershopItem from "./components/barbershop-item";
-import { authOptions } from "../_lib/auth";
+
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
 
-  const [barbershops, confirmedBookings] = await Promise.all([
+  const [barbershops, recommendedBarbershops, confirmedBookings] = await Promise.all([
     db.barbershop.findMany({}),
+    db.barbershop.findMany({
+      orderBy: {
+        id: "asc",
+      },
+    }),
     session?.user
       ? db.booking.findMany({
           where: {
@@ -34,7 +40,9 @@ export default async function Home() {
       <Header />
 
       <div className="px-5 pt-5">
-        <h2 className="text-xl font-bold">{session?.user ?`Ola, ${session.user.name?.split(" ")[0]}!` : "Ola! Vamos agendar um corte hoje ?"}</h2>
+        <h2 className="text-xl font-bold">
+          {session?.user ? `Olá, ${session.user.name?.split(" ")[0]}!` : "Olá! Vamos agendar um corte hoje?"}
+        </h2>
         <p className="capitalize text-sm">
           {format(new Date(), "EEEE',' dd 'de' MMMM", {
             locale: ptBR,
@@ -64,7 +72,7 @@ export default async function Home() {
 
         <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop) => (
-            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]" >
+            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
               <BarbershopItem key={barbershop.id} barbershop={barbershop} />
             </div>
           ))}
@@ -75,8 +83,8 @@ export default async function Home() {
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">Populares</h2>
 
         <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => (
-            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]" >
+          {recommendedBarbershops.map((barbershop) => (
+            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
               <BarbershopItem key={barbershop.id} barbershop={barbershop} />
             </div>
           ))}
